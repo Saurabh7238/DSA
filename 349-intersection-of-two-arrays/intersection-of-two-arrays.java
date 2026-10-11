@@ -1,9 +1,29 @@
 class Solution {
-    int[] ans = new int[1000];
-    int count = 0;
-
     public int[] intersection(int[] nums1, int[] nums2) {
-        compare(nums1, nums2, 0, 0);
+        int[] ans = new int[nums1.length];
+        int count = 0;
+
+        for (int i = 0; i < nums1.length; i++) {
+            for (int j = 0; j < nums2.length; j++) {
+                if (nums1[i] == nums2[j]) {
+                    boolean found = false;
+
+                    for (int k = 0; k < count; k++) {
+                        if (ans[k] == nums1[i]) {
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        ans[count] = nums1[i];
+                        count++;
+                    }
+
+                    break;
+                }
+            }
+        }
 
         int[] result = new int[count];
 
@@ -12,34 +32,5 @@ class Solution {
         }
 
         return result;
-    }
-
-    void compare(int[] nums1, int[] nums2, int idx1, int idx2) {
-        if (idx1 == nums1.length) {
-            return;
-        }
-
-        if (idx2 == nums2.length) {
-            compare(nums1, nums2, idx1 + 1, 0);
-            return;
-        }
-
-        if (nums1[idx1] == nums2[idx2]) {
-            boolean found = false;
-
-            for (int i = 0; i < count; i++) {
-                if (ans[i] == nums1[idx1]) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                ans[count] = nums1[idx1];
-                count++;
-            }
-        }
-
-        compare(nums1, nums2, idx1, idx2 + 1);
     }
 }
