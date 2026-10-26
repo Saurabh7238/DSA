@@ -1,8 +1,12 @@
+
 class Solution {
     public int findComplement(int num) {
-        int length=Integer.toBinaryString(num).length();
-        int mask=(1 << length) - 1;
-        num=num ^ mask;
-        return num;
+        int mask = 0;
+        
+        while (mask < num) {
+            mask = (mask << 1) | 1;
+        }
+
+        return num ^ mask;
     }
 }
